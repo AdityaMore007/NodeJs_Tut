@@ -1,12 +1,14 @@
 const readline = require('readline')
+let fs = require('fs');
 
+/* LECTURE 4: CODE EXAMPLE.
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
 
 rl.question('Please enter the name: ',(name)=>{
-    console.log('YOu entered:',name)
+    console.log('YOu entered:'+name)
     rl.close()
 
 })
@@ -15,3 +17,54 @@ rl.on('close',()=>{
     console.log('interface closed');
     process.exit(0)    
 })
+*/
+
+
+/* 
+    LECTURE 5: READING AND WRITING FILE
+*/
+
+// let textIn = fs.readFileSync('./Files/output.txt', 'utf8')
+// console.log(textIn);
+
+// let content = `Data read from input.txt: ${textIn} \nDate created: ${new Date()}`
+// fs.writeFileSync('./Files/input.txt' , content)
+
+
+/*
+    LECTURE 6: WHAT IS ASYNCHRONOUS FUNCTION.
+*/
+
+
+// Background: This is where time consuming task should be executed Asynchronously.
+
+// NodeJs: 1. Non-Blocking IO Model.
+    //     2. This is why we use so manyn callBack function in NodeJs.
+    //     3. CallBack doesn't mean Asynchronous.
+
+// fs.readFile('./Files/output.txt' , 'utf-8' , (err,data)=>{
+//     console.log(data);
+// })
+
+// console.log("Reading File...");
+
+
+/*
+   LECTURE 7: READING AND WRITIING FILE ASYNCHRONOUSLY.
+*/
+
+fs.readFile('./Files/start.txt' , 'utf-8' , (error1,data1) => {
+    console.log(data1);
+    fs.readFile(`./Files/${data1}.txt` , 'utf-8' , (error2,data2) => {
+        console.log(data2);
+        fs.readFile('./Files/append.txt' , 'utf-8' , (error3,data3) => {
+            console.log(data3);
+            fs.writeFile('./Files/input.txt' , `${data2}\n\n${data3}\n\nDate created ${new Date()}` , () => {
+                console.log('File run Successfully!!...')
+            })
+        })
+        
+    })
+})
+
+console.log('Reading File....');

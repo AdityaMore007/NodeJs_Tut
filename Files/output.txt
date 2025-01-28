@@ -1,0 +1,1 @@
+This is sample text file which are going to read using NodeJs. 
