@@ -53,18 +53,59 @@ rl.on('close',()=>{
    LECTURE 7: READING AND WRITIING FILE ASYNCHRONOUSLY.
 */
 
-fs.readFile('./Files/start.txt' , 'utf-8' , (error1,data1) => {
-    console.log(data1);
-    fs.readFile(`./Files/${data1}.txt` , 'utf-8' , (error2,data2) => {
-        console.log(data2);
-        fs.readFile('./Files/append.txt' , 'utf-8' , (error3,data3) => {
-            console.log(data3);
-            fs.writeFile('./Files/input.txt' , `${data2}\n\n${data3}\n\nDate created ${new Date()}` , () => {
-                console.log('File run Successfully!!...')
-            })
-        })
+// fs.readFile('./Files/start.txt' , 'utf-8' , (error1,data1) => {
+//     console.log(data1);
+//     fs.readFile(`./Files/${data1}.txt` , 'utf-8' , (error2,data2) => {
+//         console.log(data2);
+//         fs.readFile('./Files/append.txt' , 'utf-8' , (error3,data3) => {
+//             console.log(data3);
+//             fs.writeFile('./Files/input.txt' , `${data2}\n\n${data3}\n\nDate created ${new Date()}` , () => {
+//                 console.log('File run Successfully!!...')
+//             })
+//         })
         
-    })
-})
+//     })
+// })
 
-console.log('Reading File....');
+// console.log('Reading File....');
+
+
+/*
+ LECTURE 8: CREATING SIMPLE WEB SERVER.
+*/
+
+const html = fs.readFileSync('./Template/index.html' , 'utf-8' , )
+
+const http = require('http')
+
+// creating server:
+const server = http.createServer((request,response) => {
+    response.end(html)
+    console.log('A new request has received...');
+    // console.log(response);
+    
+});
+
+// starting new server:
+server.listen(8000,'127.0.0.1',()=>{
+    console.log('Server has Listened!!...')
+});
+
+/*
+LECTURE 9: HOW THE WEB WORKS...
+
+Server: 192.168.20.134
+where, NodeApp Port : 8000
+       JavaApp port : 4000
+       .NETApp port : 3000
+*/
+
+
+
+/*
+LECTURE 11: ROUTING
+*/
+
+// 1. Routing defines the way in which the Client requests are handled by
+//    the Application Endpoints.
+// 2. Routing basically means implementing differnt actions for differnt URLs.
