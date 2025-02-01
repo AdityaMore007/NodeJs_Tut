@@ -80,10 +80,18 @@ const http = require('http')
 
 // creating server:
 const server = http.createServer((request,response) => {
-    response.end(html)
-    console.log('A new request has received...');
-    // console.log(response);
-    
+    let path = request.url
+    // response.end(path)
+
+    if(path === '/' || path.toLocaleLowerCase() ==='/home'){
+        response.end("You are in Home Page!!")
+    } else if (path.toLocaleLowerCase() === '/about'){
+        response.end("You are in About Page..")
+    }else if (path.toLocaleLowerCase() === '/contact'){
+        response.end("You are in Contact Page...")
+    }else {
+        response.end("Error 404 - Page Not Found!!")
+    }
 });
 
 // starting new server:
