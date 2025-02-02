@@ -74,7 +74,7 @@ rl.on('close',()=>{
  LECTURE 8: CREATING SIMPLE WEB SERVER.
 */
 
-const html = fs.readFileSync('./Template/index.html' , 'utf-8' , )
+const html = fs.readFileSync('./Template/index.html' , 'utf-8' )
 
 const http = require('http')
 
@@ -84,13 +84,42 @@ const server = http.createServer((request,response) => {
     // response.end(path)
 
     if(path === '/' || path.toLocaleLowerCase() ==='/home'){
-        response.end("You are in Home Page!!")
-    } else if (path.toLocaleLowerCase() === '/about'){
-        response.end("You are in About Page..")
-    }else if (path.toLocaleLowerCase() === '/contact'){
-        response.end("You are in Contact Page...")
-    }else {
-        response.end("Error 404 - Page Not Found!!")
+        response.writeHead(200,{
+            'Content-Type' : 'text/html',
+            'my-header' : 'Hello , world'
+        })
+        response.end(html.replace('{{%CONTENT}}','You are in Home Page'))
+    } 
+    else if (path.toLocaleLowerCase() === '/about'){
+        response.writeHead(200,{
+            'Content-Type' : 'text/html',
+            'my-header' : 'Hello , world'
+        })
+        response.end(html.replace('{{%CONTENT}}','You are in About Page'))
+    }
+    else if (path.toLocaleLowerCase() === '/contact'){
+        response.writeHead(200,{
+            'Content-Type' : 'text/html',
+            'my-header' : 'Hello , world'
+        })
+        response.end(html.replace('{{%CONTENT}}','You are in Contact Page'))
+    } 
+    else if(path.toLocaleLowerCase() === '/products'){
+        response.writeHead(200,{
+            'Content-Type':'application/json'
+        })
+        fs.readFile('./Data/products.json' , 'utf-8' , (error,data) => {
+            let products = JSON.parse(data)
+            response.end(data)
+        })
+    }
+    
+    else {
+        response.writeHead(404,{
+            'Content-Type' : 'text/html',
+            'my-header' : 'Hello , world'
+        })
+        response.end(html.replace('{{%CONTENT}}','Error-404 Page Not Found..'))
     }
 });
 
